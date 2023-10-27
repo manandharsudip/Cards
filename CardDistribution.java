@@ -137,26 +137,9 @@ public class CardDistribution {
     int numPlayers
   ) {
     for (int i = 0; i < numPlayers; i++) {
-      // System.out.println("Player " + (i + 1) + " Hand: " + players.get(i));
-
+      // sorting cards in hand
       String[] myHand = new String[3];
       myHand = sortFunc(players.get(i), myHand, ranks);
-
-      // int ind = 0;
-      // for (String card : players.get(i)) {
-      //   int index = card.indexOf(" ");
-      //   myHand[ind] = card.substring(0, index);
-      //   ind++;
-      // }
-
-      // Arrays.sort(
-      //   myHand,
-      //   (rank1, rank2) -> {
-      //     int inde1 = Arrays.asList(ranks).indexOf(rank1);
-      //     int inde2 = Arrays.asList(ranks).indexOf(rank2);
-      //     return Integer.compare(inde1, inde2);
-      //   }
-      // );
 
       int rank1Index = Arrays.asList(ranks).indexOf(myHand[0]);
       int rank2Index = Arrays.asList(ranks).indexOf(myHand[1]);
@@ -204,6 +187,7 @@ public class CardDistribution {
   public List<List<String>> checkColor(
     List<Players> playersList,
     List<List<String>> players,
+    String[] ranks,
     int numPlayers
   ) {
     for (int i = 0; i < numPlayers; i++) {
@@ -220,6 +204,10 @@ public class CardDistribution {
         }
       }
 
+      // sorting cards in hand
+      String[] myHand = new String[3];
+      myHand = sortFunc(players.get(i), myHand, ranks);
+
       if (color) {
         // System.out.println("Color");
         Players player = new Players();
@@ -234,6 +222,9 @@ public class CardDistribution {
           player.setName("Player" + i);
           player.setHand(players.get(i));
           player.setStatus("Color");
+          player.setBiggestCard(myHand[2]);
+          player.setMiddleCard(myHand[1]);
+          player.setSmallestCard(myHand[0]);
           playersList.add(player);
         }
       }
@@ -245,23 +236,35 @@ public class CardDistribution {
   public List<List<String>> checkPair(
     List<Players> playersList,
     List<List<String>> players,
+    String[] ranks,
     int numPlayers
   ) {
     for (int i = 0; i < numPlayers; i++) {
       // System.out.println("Player " + (i + 1) + " Hand: " + players.get(i));
 
-      int count = 0;
+      String num = "";
       String pairOf = "";
-      int index1 = players.get(i).get(0).indexOf(" ");
-      String num = players.get(i).get(0).substring(0, index1);
+      String thirdCard = "";
 
-      for (String card : players.get(i)) {
-        int index = card.indexOf(" ");
-        if (card.substring(0, index).equals(num)) {
-          pairOf = num;
-          count++;
+      int count = 0;
+
+      for (String mCard : players.get(i)) {
+        int mIndex = mCard.indexOf(" ");
+        num = mCard.substring(0, mIndex);
+        System.out.println("-------------------------");
+        for (String card : players.get(i)) {
+          int index = card.indexOf(" ");
+          if (card.substring(0, index).equals(num)) {
+            pairOf = num;
+            count++;
+          } else {
+            thirdCard = card.substring(0, index);
+          }
         }
-        // System.out.println(card.substring(0, index));
+        if (count == 2) {
+          break;
+        }
+        count = 0;
       }
 
       if (count == 2) {
@@ -276,9 +279,11 @@ public class CardDistribution {
           player.setName("Player" + i);
           player.setHand(players.get(i));
           player.setStatus("Pair");
+          player.setBiggestCard(pairOf);
+          player.setMiddleCard(pairOf);
+          player.setSmallestCard(thirdCard);
           playersList.add(player);
         }
-        // System.out.println("Pair of: " + pairOf);
       }
     }
 
@@ -288,25 +293,14 @@ public class CardDistribution {
   public List<List<String>> defaultHand(
     List<Players> playersList,
     List<List<String>> players,
+    String[] ranks,
     int numPlayers
   ) {
     for (int i = 0; i < numPlayers; i++) {
-      // // System.out.println("Player " + (i + 1) + " Hand: " + players.get(i));
+      // sorting cards in hand
+      String[] myHand = new String[3];
+      myHand = sortFunc(players.get(i), myHand, ranks);
 
-      // int count = 0;
-      // String pairOf = "";
-      // int index1 = players.get(i).get(0).indexOf(" ");
-      // String num = players.get(i).get(0).substring(0, index1);
-
-      // for (String card : players.get(i)) {
-      //   int index = card.indexOf(" ");
-      //   if (card.substring(0, index).equals(num)) {
-      //     pairOf = num;
-      //     count++;
-      //   }
-      // }
-
-      // if (count == 2) {
       Players player = new Players();
       String playerName = "Player" + i;
 
@@ -318,6 +312,9 @@ public class CardDistribution {
         player.setName("Player" + i);
         player.setHand(players.get(i));
         player.setStatus("Nothing !!");
+        player.setBiggestCard(myHand[2]);
+        player.setMiddleCard(myHand[1]);
+        player.setSmallestCard(myHand[0]);
         playersList.add(player);
       }
     }
@@ -392,37 +389,44 @@ public class CardDistribution {
       List.of("1 of Spade", "3 of Spade", "2 of Spade"),
       List.of("1 of Spade", "2 of Spade", "4 of Spade"),
       List.of("K of Spade", "J of Spade", "Q of Club"),
-      List.of("7 of Club", "7 of Spade", "6 of Club"),
+      List.of("K of Club", "K of Spade", "10 of Club"),
       List.of("7 of Hearts", "K of Spade", "6 of Club")
     );
     CardDistribution myGame = new CardDistribution();
 
     List<Players> playersList = new ArrayList<>();
 
-    int playersCount = myPlayers.size();
+    // int playersCount = myPlayers.size();
 
-    myGame.checkTrial(playersList, myPlayers, ranks, playersCount);
-    myGame.checkDoubleRun(playersList, myPlayers, ranks, playersCount);
-    myGame.checkRun(playersList, myPlayers, ranks, playersCount);
-    myGame.checkColor(playersList, myPlayers, playersCount);
-    myGame.checkPair(playersList, myPlayers, playersCount);
-    myGame.defaultHand(playersList, myPlayers, playersCount);
+    // myGame.checkTrial(playersList, myPlayers, ranks, playersCount);
+    // myGame.checkDoubleRun(playersList, myPlayers, ranks, playersCount);
+    // myGame.checkRun(playersList, myPlayers, ranks, playersCount);
+    // myGame.checkColor(playersList, myPlayers, ranks, playersCount);
+    // myGame.checkPair(playersList, myPlayers, ranks, playersCount);
+    // myGame.defaultHand(playersList, myPlayers, ranks, playersCount);
     // System.out.println("-----------------------------");
-    // myGame.checkTrial(playersList, players, numPlayers);
-    // myGame.checkDoubleRun(playersList, players, ranks, numPlayers);
-    // myGame.checkRun(playersList, players, ranks, numPlayers);
-    // myGame.checkColor(playersList, players, numPlayers);
-    // myGame.checkPair(playersList, players, numPlayers);
-    // myGame.defaultHand(playersList, players, numPlayers);
+    myGame.checkTrial(playersList, players, ranks, numPlayers);
+    myGame.checkDoubleRun(playersList, players, ranks, numPlayers);
+    myGame.checkRun(playersList, players, ranks, numPlayers);
+    myGame.checkColor(playersList, players, ranks, numPlayers);
+    myGame.checkPair(playersList, players, ranks, numPlayers);
+    myGame.defaultHand(playersList, players, ranks, numPlayers);
 
     System.out.println("----------------------------------");
     for (Players player : playersList) {
       System.out.println("Name: " + player.getName());
       System.out.println("Hand: " + player.getHand());
       System.out.println("Status: " + player.getStatus());
-      System.out.println("Big: " + player.getBiggestCard());
-      System.out.println("Med: " + player.getMiddleCard());
-      System.out.println("Small: " + player.getSmallestCard());
+      if (player.getStatus() == "Trial") {
+        System.out.println("Trial of: " + player.getBiggestCard());
+      } else if (player.getStatus() == "Pair") {
+        System.out.println("Pair of: " + player.getBiggestCard());
+        System.out.println("Third Card: " + player.getSmallestCard());
+      } else {
+        System.out.println("Big: " + player.getBiggestCard());
+        System.out.println("Med: " + player.getMiddleCard());
+        System.out.println("Small: " + player.getSmallestCard());
+      }
       System.out.println("----------------------------------");
     }
   }

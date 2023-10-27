@@ -1,20 +1,37 @@
+import java.util.List;
+
 public class Test {
-    public static void main(String[] args){
-        int[] numbers = {1,2,3};
-        int big = numbers[0];
-        int med = numbers[0];
-        int small = numbers[0];
 
-        for (int i = 0; i < numbers.length; i++){
-            if (numbers[i]>big){
-                big = numbers[i];
-            } else if (numbers[i]>med){
-                med = numbers[i];
-            } else {
-                small = numbers[i];
-            }
+  public static void main(String[] args) {
+    List<String> players = List.of("10", "K", "K");
+
+    String num = "";
+    String pairOf = "";
+    String thirdCard = "";
+
+    int count = 0;
+
+    for (String mCard : players) {
+      num = mCard;
+      for (String card : players) {
+        if (card.equals(num)) {
+          pairOf = num;
+          count++;
+          System.out.println(count);
+        } else {
+          thirdCard = card;
         }
-
-        System.out.println("Big: "+ big + "\nMed: " + med + "\nSmall: "+ small);
+      }
+      if (count == 2) {
+        break;
+      }
+      count = 0;
     }
+
+    if (count == 2) {
+      System.out.println("Pair: " + pairOf + "\nThird: " + thirdCard);
+    } else {
+      System.out.println("No Pair!!");
+    }
+  }
 }
