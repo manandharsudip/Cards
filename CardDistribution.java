@@ -97,6 +97,10 @@ public class CardDistribution {
       int rank2Index = Arrays.asList(ranks).indexOf(myHand[1]);
       int rank3Index = Arrays.asList(ranks).indexOf(myHand[2]);
 
+      System.out.println("Rank 1: " + rank1Index);
+      System.out.println("Rank 2: " + rank2Index);
+      System.out.println("Rank 3: " + rank3Index);
+
       // custom logic to check the run in the hand
       if (
         (
@@ -104,7 +108,15 @@ public class CardDistribution {
           Math.abs(rank3Index - rank2Index) == 1 &&
           color
         ) ||
-        (Math.abs(rank2Index - rank1Index) == 1 && rank3Index == 12) &&
+        (
+          Math.abs(rank2Index - rank1Index) == 1 &&
+          Math.abs(rank3Index - rank1Index) == 12
+        ) &&
+        color ||
+        (
+          Math.abs(rank2Index - rank1Index) == 1 &&
+          Math.abs(rank3Index - rank2Index) == 11
+        ) &&
         color
       ) {
         Players player = new Players();
@@ -136,11 +148,12 @@ public class CardDistribution {
       int rank3Index = Arrays.asList(ranks).indexOf(myHand[2]);
 
       if (
+        Math.abs(rank2Index - rank1Index) == 1 &&
         (
-          Math.abs(rank2Index - rank1Index) == 1 &&
-          Math.abs(rank3Index - rank2Index) == 1
-        ) ||
-        (Math.abs(rank2Index - rank1Index) == 1 && rank3Index == 12)
+          Math.abs(rank3Index - rank2Index) == 1 ||
+          Math.abs(rank3Index - rank1Index) == 12 ||
+          Math.abs(rank3Index - rank2Index) == 11
+        )
         //  ||
         // (
         //   Math.abs(rank3Index - rank2Index) == 1 &&
@@ -358,8 +371,8 @@ public class CardDistribution {
       // List.of("J of Hearts", "J of Diamond", "J of Club"),
       // List.of("10 of Spade", "10 of Diamond", "10 of Club"),
       // List.of("8 of Spade", "8 of Diamond", "8 of Club"),
-      // List.of("3 of Spade", "A of Spade", "2 of Spade"),
-      // List.of("9 of Spade", "10 of Spade", "J of Spade"),
+      List.of("3 of Spade", "A of Spade", "2 of Spade"),
+      List.of("9 of Spade", "10 of Spade", "A of Spade")
       // List.of("A of Spade", "K of Spade", "Q of Spade"),
       // List.of("A of Club", "K of Club", "Q of Club"),
       // List.of("J of Spade", "K of Spade", "Q of Spade"),
@@ -394,21 +407,21 @@ public class CardDistribution {
 
     int playersCount = myPlayers.size();
 
-    // myGame.checkTrail(playersList, myPlayers, ranks, playersCount);
-    // myGame.checkDoubleRun(playersList, myPlayers, ranks, playersCount);
-    // myGame.checkRun(playersList, myPlayers, ranks, playersCount);
-    // myGame.checkColor(playersList, myPlayers, ranks, playersCount);
-    // myGame.checkPair(playersList, myPlayers, ranks, playersCount);
-    // myGame.defaultHand(playersList, myPlayers, ranks, playersCount);
-    // System.out.println("-----------------------------");
-    myGame.checkTrail(playersList, players, ranks, numPlayers);
-    myGame.checkDoubleRun(playersList, players, ranks, numPlayers);
-    myGame.checkRun(playersList, players, ranks, numPlayers);
-    myGame.checkColor(playersList, players, ranks, numPlayers);
-    myGame.checkPair(playersList, players, ranks, numPlayers);
-    myGame.defaultHand(playersList, players, ranks, numPlayers);
+    myGame.checkTrail(playersList, myPlayers, ranks, playersCount);
+    myGame.checkDoubleRun(playersList, myPlayers, ranks, playersCount);
+    myGame.checkRun(playersList, myPlayers, ranks, playersCount);
+    myGame.checkColor(playersList, myPlayers, ranks, playersCount);
+    myGame.checkPair(playersList, myPlayers, ranks, playersCount);
+    myGame.defaultHand(playersList, myPlayers, ranks, playersCount);
+    System.out.println("-----------------------------");
+    // myGame.checkTrail(playersList, players, ranks, numPlayers);
+    // myGame.checkDoubleRun(playersList, players, ranks, numPlayers);
+    // myGame.checkRun(playersList, players, ranks, numPlayers);
+    // myGame.checkColor(playersList, players, ranks, numPlayers);
+    // myGame.checkPair(playersList, players, ranks, numPlayers);
+    // myGame.defaultHand(playersList, players, ranks, numPlayers);
 
-    System.out.println("----------------------------------");
+    // System.out.println("----------------------------------");
     for (Players player : playersList) {
       if (player.getStatus() == "Trial") {
         trailPlayersList.add(player);
@@ -745,7 +758,7 @@ public class CardDistribution {
     //   }
     //   System.out.println("----------------------------------");
     // }
-    
+
     System.out.println(
       "--------Some Game Stats--------- \nTrail: " +
       my_game.getTrail() +
