@@ -31,7 +31,7 @@ public class CardDistribution {
     return myHandd;
   }
 
-  public List<List<String>> checkTrial(
+  public List<List<String>> checkTrail(
     List<Players> playersList,
     List<List<String>> players,
     String[] ranks,
@@ -104,18 +104,8 @@ public class CardDistribution {
           Math.abs(rank3Index - rank2Index) == 1 &&
           color
         ) ||
-        (
-          Math.abs(rank2Index - rank1Index) == 1 &&
-          color &&
-          (rank1Index == 0 && rank2Index == 12) ||
-          (rank1Index == 12 && rank2Index == 0)
-        ) ||
-        (
-          Math.abs(rank3Index - rank2Index) == 1 &&
-          color &&
-          (rank1Index == 0 && rank2Index == 12) ||
-          (rank1Index == 12 && rank2Index == 0)
-        )
+        (Math.abs(rank2Index - rank1Index) == 1 && rank3Index == 12) &&
+        color
       ) {
         Players player = new Players();
         player.setName("Player" + i);
@@ -150,16 +140,13 @@ public class CardDistribution {
           Math.abs(rank2Index - rank1Index) == 1 &&
           Math.abs(rank3Index - rank2Index) == 1
         ) ||
-        (
-          Math.abs(rank2Index - rank1Index) == 1 &&
-          (rank1Index == 0 && rank2Index == 12) ||
-          (rank1Index == 12 && rank2Index == 0)
-        ) ||
-        (
-          Math.abs(rank3Index - rank2Index) == 1 &&
-          (rank1Index == 0 && rank2Index == 12) ||
-          (rank1Index == 12 && rank2Index == 0)
-        )
+        (Math.abs(rank2Index - rank1Index) == 1 && rank3Index == 12)
+        //  ||
+        // (
+        //   Math.abs(rank3Index - rank2Index) == 1 &&
+        //   (rank1Index == 0 && rank2Index == 12) ||
+        //   (rank1Index == 12 && rank2Index == 0)
+        // )
       ) {
         Players player = new Players();
         String playerName = "Player" + i;
@@ -251,7 +238,6 @@ public class CardDistribution {
       for (String mCard : players.get(i)) {
         int mIndex = mCard.indexOf(" ");
         num = mCard.substring(0, mIndex);
-        System.out.println("-------------------------");
         for (String card : players.get(i)) {
           int index = card.indexOf(" ");
           if (card.substring(0, index).equals(num)) {
@@ -311,7 +297,7 @@ public class CardDistribution {
       if (!playerExists) {
         player.setName("Player" + i);
         player.setHand(players.get(i));
-        player.setStatus("Nothing !!");
+        player.setStatus("Nothing");
         player.setBiggestCard(myHand[2]);
         player.setMiddleCard(myHand[1]);
         player.setSmallestCard(myHand[0]);
@@ -368,44 +354,54 @@ public class CardDistribution {
       currentPlayer = (currentPlayer + 1) % numPlayers; // Move to the next player
     }
 
-    // // Display each player's hand
-    // for (int i = 0; i < numPlayers; i++) {
-    //     System.out.println("Player " + (i + 1) + " Hand: " + players.get(i));
-    //     System.out.println("Numbers Only");
-    // }
-
-    // Display each player's hand
-    // for (int i = 0; i < numPlayers; i++) {
-    //     System.out.println("Player " + (i + 1) + " Hand: " + players.get(i));
-
-    //     System.out.println("Numbers");
-    //     players.get(i).forEach(card -> {int index = card.indexOf(" "); System.out.println(card.substring(0, index));});
-    //     System.out.println("Colors");
-    //     players.get(i).forEach(card -> {int index = card.lastIndexOf(" "); System.out.println(card.substring(index+1));});
-    // }
-
     List<List<String>> myPlayers = List.of(
-      List.of("10 of Spade", "10 of Diamond", "10 of Club"),
-      List.of("1 of Spade", "3 of Spade", "2 of Spade"),
-      List.of("1 of Spade", "2 of Spade", "4 of Spade"),
-      List.of("K of Spade", "J of Spade", "Q of Club"),
-      List.of("K of Club", "K of Spade", "10 of Club"),
-      List.of("7 of Hearts", "K of Spade", "6 of Club")
+      // List.of("J of Hearts", "J of Diamond", "J of Club"),
+      // List.of("10 of Spade", "10 of Diamond", "10 of Club"),
+      // List.of("8 of Spade", "8 of Diamond", "8 of Club"),
+      // List.of("3 of Spade", "A of Spade", "2 of Spade"),
+      // List.of("9 of Spade", "10 of Spade", "J of Spade"),
+      // List.of("A of Spade", "K of Spade", "Q of Spade"),
+      // List.of("A of Club", "K of Club", "Q of Club"),
+      // List.of("J of Spade", "K of Spade", "Q of Spade"),
+      // List.of("K of Spade", "J of Spade", "Q of Diamond"),
+      // List.of("K of Diamond", "J of Club", "Q of Spade"),
+      // List.of("8 of Spade", "9 of Spade", "10 of Diamond"),
+      // List.of("A of Spade", "2 of Spade", "3 of Diamond"),
+      // List.of("A of Spade", "2 of Spade", "3 of Diamond")
+      // List.of("A of Club", "2 of Club", "4 of Club"),
+      // List.of("5 of Club", "6 of Club", "3 of Club"),
+      // List.of("5 of Diamond", "7 of Diamond", "3 of Diamond"),
+      // List.of("5 of Diamond", "7 of Diamond", "3 of Diamond")
+      // List.of("A of Spade", "2 of Spade", "10 of Spade")
+      // List.of("K of Club", "K of Diamond", "10 of Hearts"),
+      // List.of("K of Spade", "K of Hearts", "10 of Spade"),
+      // List.of("A of Club", "A of Diamond", "6 of Hearts"),
+      // List.of("A of Club", "A of Diamond", "5 of Hearts")
+      // List.of("7 of Hearts", "Q of Spade", "6 of Club"),
+      // List.of("7 of Club", "J of Spade", "6 of Spade")
     );
     CardDistribution myGame = new CardDistribution();
 
     List<Players> playersList = new ArrayList<>();
+    List<Players> trailPlayersList = new ArrayList<>();
+    List<Players> doubleRunPlayersList = new ArrayList<>();
+    List<Players> runPlayersList = new ArrayList<>();
+    List<Players> colorPlayersList = new ArrayList<>();
+    List<Players> pairPlayersList = new ArrayList<>();
+    List<Players> nothingPlayersList = new ArrayList<>();
 
-    // int playersCount = myPlayers.size();
+    Game my_game = new Game();
 
-    // myGame.checkTrial(playersList, myPlayers, ranks, playersCount);
+    int playersCount = myPlayers.size();
+
+    // myGame.checkTrail(playersList, myPlayers, ranks, playersCount);
     // myGame.checkDoubleRun(playersList, myPlayers, ranks, playersCount);
     // myGame.checkRun(playersList, myPlayers, ranks, playersCount);
     // myGame.checkColor(playersList, myPlayers, ranks, playersCount);
     // myGame.checkPair(playersList, myPlayers, ranks, playersCount);
     // myGame.defaultHand(playersList, myPlayers, ranks, playersCount);
     // System.out.println("-----------------------------");
-    myGame.checkTrial(playersList, players, ranks, numPlayers);
+    myGame.checkTrail(playersList, players, ranks, numPlayers);
     myGame.checkDoubleRun(playersList, players, ranks, numPlayers);
     myGame.checkRun(playersList, players, ranks, numPlayers);
     myGame.checkColor(playersList, players, ranks, numPlayers);
@@ -414,20 +410,367 @@ public class CardDistribution {
 
     System.out.println("----------------------------------");
     for (Players player : playersList) {
+      if (player.getStatus() == "Trial") {
+        trailPlayersList.add(player);
+        my_game.setTrail(my_game.getTrail() + 1);
+      } else if (player.getStatus() == "Double Run") {
+        doubleRunPlayersList.add(player);
+        my_game.setDoubleRun(my_game.getDoubleRun() + 1);
+      } else if (player.getStatus() == "Run") {
+        runPlayersList.add(player);
+        my_game.setRun(my_game.getRun() + 1);
+      } else if (player.getStatus() == "Color") {
+        colorPlayersList.add(player);
+        my_game.setColor(my_game.getColor() + 1);
+      } else if (player.getStatus() == "Pair") {
+        pairPlayersList.add(player);
+        my_game.setPair(my_game.getPair() + 1);
+      } else {
+        nothingPlayersList.add(player);
+        my_game.setNothing(my_game.getNothing() + 1);
+      }
+    }
+
+    for (Players player : playersList) {
+      if (my_game.getTrail() > 0 && player.getStatus() == "Trial") {
+        if (my_game.getTrail() == 1) {
+          player.setState("Winner");
+          my_game.setWinner(player);
+          break;
+        } else if (my_game.getTrail() > 1) {
+          Players winner = trailPlayersList.get(0);
+          int rank1 = Arrays.asList(ranks).indexOf(winner.getBiggestCard());
+          for (Players trailPlayer : trailPlayersList) {
+            int rank = Arrays
+              .asList(ranks)
+              .indexOf(trailPlayer.getBiggestCard());
+            if (rank > rank1) {
+              winner = trailPlayer;
+            } else {
+              trailPlayer.setState("Lost!!");
+            }
+          }
+          winner.setState("Winner");
+          my_game.setWinner(winner);
+          break;
+        }
+      } else if (
+        my_game.getDoubleRun() > 0 && player.getStatus() == "Double Run"
+      ) {
+        if (my_game.getDoubleRun() == 1) {
+          player.setState("Winner");
+          my_game.setWinner(player);
+          break;
+        } else if (my_game.getDoubleRun() > 1) {
+          Players winner = doubleRunPlayersList.get(0);
+          int rank1 = Arrays.asList(ranks).indexOf(winner.getBiggestCard());
+          int rank2 = Arrays.asList(ranks).indexOf(winner.getMiddleCard());
+          int rank3 = Arrays.asList(ranks).indexOf(winner.getSmallestCard());
+          boolean isFirstElement = true;
+          for (Players doubleRunPlayer : doubleRunPlayersList) {
+            int rank11 = Arrays
+              .asList(ranks)
+              .indexOf(doubleRunPlayer.getBiggestCard());
+            int rank22 = Arrays
+              .asList(ranks)
+              .indexOf(doubleRunPlayer.getMiddleCard());
+            int rank33 = Arrays
+              .asList(ranks)
+              .indexOf(doubleRunPlayer.getSmallestCard());
+            if (isFirstElement) {
+              isFirstElement = false;
+              continue;
+            } else if (rank11 > rank1) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = doubleRunPlayer;
+            } else if (rank11 == rank1 && rank22 > rank2) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = doubleRunPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 > rank3) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = doubleRunPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 == rank3) {
+              winner = null;
+            }
+          }
+          if (winner != null) {
+            winner.setState("Winner");
+            my_game.setWinner(winner);
+          } else {
+            System.out.println("Game Draw");
+          }
+          break;
+        }
+      } else if (my_game.getRun() > 0 && player.getStatus() == "Run") {
+        if (my_game.getRun() == 1) {
+          player.setState("Winner");
+          my_game.setWinner(player);
+          break;
+        } else if (my_game.getRun() > 1) {
+          Players winner = runPlayersList.get(0);
+          int rank1 = Arrays.asList(ranks).indexOf(winner.getBiggestCard());
+          int rank2 = Arrays.asList(ranks).indexOf(winner.getMiddleCard());
+          int rank3 = Arrays.asList(ranks).indexOf(winner.getSmallestCard());
+          boolean isFirstElement = true;
+          for (Players runPlayer : runPlayersList) {
+            int rank11 = Arrays
+              .asList(ranks)
+              .indexOf(runPlayer.getBiggestCard());
+            int rank22 = Arrays
+              .asList(ranks)
+              .indexOf(runPlayer.getMiddleCard());
+            int rank33 = Arrays
+              .asList(ranks)
+              .indexOf(runPlayer.getSmallestCard());
+            if (isFirstElement) {
+              isFirstElement = false;
+              continue;
+            } else if (rank11 > rank1) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = runPlayer;
+            } else if (rank11 == rank1 && rank22 > rank2) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = runPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 > rank3) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = runPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 == rank3) {
+              winner = null;
+            }
+          }
+          if (winner != null) {
+            winner.setState("Winner");
+            my_game.setWinner(winner);
+          } else {
+            System.out.println("Game Draw");
+          }
+          break;
+        }
+      } else if (my_game.getColor() > 0 && player.getStatus() == "Color") {
+        if (my_game.getColor() == 1) {
+          player.setState("Winner");
+          my_game.setWinner(player);
+          break;
+        } else if (my_game.getColor() > 1) {
+          Players winner = colorPlayersList.get(0);
+          int rank1 = Arrays.asList(ranks).indexOf(winner.getBiggestCard());
+          int rank2 = Arrays.asList(ranks).indexOf(winner.getMiddleCard());
+          int rank3 = Arrays.asList(ranks).indexOf(winner.getSmallestCard());
+          boolean isFirstElement = true;
+          for (Players colorPlayer : colorPlayersList) {
+            int rank11 = Arrays
+              .asList(ranks)
+              .indexOf(colorPlayer.getBiggestCard());
+            int rank22 = Arrays
+              .asList(ranks)
+              .indexOf(colorPlayer.getMiddleCard());
+            int rank33 = Arrays
+              .asList(ranks)
+              .indexOf(colorPlayer.getSmallestCard());
+            if (isFirstElement) {
+              isFirstElement = false;
+              continue;
+            } else if (rank11 > rank1) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = colorPlayer;
+            } else if (rank11 == rank1 && rank22 > rank2) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = colorPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 > rank3) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = colorPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 == rank3) {
+              winner = null;
+            }
+          }
+          if (winner != null) {
+            winner.setState("Winner");
+            my_game.setWinner(winner);
+          } else {
+            System.out.println("Game Draw");
+          }
+          break;
+        }
+      } else if (my_game.getPair() > 0 && player.getStatus() == "Pair") {
+        if (my_game.getPair() == 1) {
+          player.setState("Winner");
+          my_game.setWinner(player);
+          break;
+        } else if (my_game.getPair() > 1) {
+          Players winner = pairPlayersList.get(0);
+          int rank1 = Arrays.asList(ranks).indexOf(winner.getBiggestCard());
+          int rank3 = Arrays.asList(ranks).indexOf(winner.getSmallestCard());
+          boolean isFirstElement = true;
+          for (Players pairPlayer : pairPlayersList) {
+            int rank11 = Arrays
+              .asList(ranks)
+              .indexOf(pairPlayer.getBiggestCard());
+            int rank33 = Arrays
+              .asList(ranks)
+              .indexOf(pairPlayer.getSmallestCard());
+            if (isFirstElement) {
+              isFirstElement = false;
+              continue;
+            } else if (rank11 > rank1) {
+              rank1 = rank11;
+              rank3 = rank33;
+              winner = pairPlayer;
+            } else if (rank11 == rank1 && rank33 > rank3) {
+              rank1 = rank11;
+              rank3 = rank33;
+              winner = pairPlayer;
+            } else if (rank11 == rank1 && rank33 == rank3) {
+              winner = null;
+            }
+          }
+          if (winner != null) {
+            winner.setState("Winner");
+            my_game.setWinner(winner);
+          } else {
+            System.out.println("Game Draw");
+          }
+          break;
+        }
+      } else if (my_game.getNothing() > 0 && player.getStatus() == "Nothing") {
+        if (my_game.getNothing() == 1) {
+          player.setState("Winner");
+          my_game.setWinner(player);
+          break;
+        } else if (my_game.getNothing() > 1) {
+          Players winner = nothingPlayersList.get(0);
+          int rank1 = Arrays.asList(ranks).indexOf(winner.getBiggestCard());
+          int rank2 = Arrays.asList(ranks).indexOf(winner.getMiddleCard());
+          int rank3 = Arrays.asList(ranks).indexOf(winner.getSmallestCard());
+          boolean isFirstElement = true;
+          for (Players nothingPlayer : nothingPlayersList) {
+            int rank11 = Arrays
+              .asList(ranks)
+              .indexOf(nothingPlayer.getBiggestCard());
+            int rank22 = Arrays
+              .asList(ranks)
+              .indexOf(nothingPlayer.getMiddleCard());
+            int rank33 = Arrays
+              .asList(ranks)
+              .indexOf(nothingPlayer.getSmallestCard());
+            if (isFirstElement) {
+              isFirstElement = false;
+              continue;
+            } else if (rank11 > rank1) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = nothingPlayer;
+            } else if (rank11 == rank1 && rank22 > rank2) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = nothingPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 > rank3) {
+              rank1 = rank11;
+              rank2 = rank22;
+              rank3 = rank33;
+              winner = nothingPlayer;
+            } else if (rank11 == rank1 && rank22 == rank2 && rank33 == rank3) {
+              winner = null;
+            }
+          }
+          if (winner != null) {
+            winner.setState("Winner");
+            my_game.setWinner(winner);
+          } else {
+            System.out.println("Game Draw");
+          }
+          break;
+        }
+      } else {
+        player.setState("Lost!!");
+      }
+    }
+
+    for (Players player : playersList) {
       System.out.println("Name: " + player.getName());
       System.out.println("Hand: " + player.getHand());
       System.out.println("Status: " + player.getStatus());
+      System.out.println("State: " + player.getState());
       if (player.getStatus() == "Trial") {
         System.out.println("Trial of: " + player.getBiggestCard());
       } else if (player.getStatus() == "Pair") {
         System.out.println("Pair of: " + player.getBiggestCard());
         System.out.println("Third Card: " + player.getSmallestCard());
+      } else if (player.getStatus() == "Nothing") {
+        System.out.println("Power of: " + player.getBiggestCard());
+        System.out.println("Middle Card: " + player.getMiddleCard());
+        System.out.println("Third Card: " + player.getSmallestCard());
       } else {
         System.out.println("Big: " + player.getBiggestCard());
-        System.out.println("Med: " + player.getMiddleCard());
-        System.out.println("Small: " + player.getSmallestCard());
+        System.out.println("Middle Card: " + player.getMiddleCard());
+        System.out.println("Third Card: " + player.getSmallestCard());
       }
       System.out.println("----------------------------------");
+    }
+
+    // System.out.println("DR Players");
+    // for (Players player : doubleRunPlayersList) {
+    //   System.out.println("Name: " + player.getName());
+    //   System.out.println("Hand: " + player.getHand());
+    //   System.out.println("Status: " + player.getStatus());
+    //   System.out.println("State: " + player.getState());
+    //   if (player.getStatus() == "Trial") {
+    //     System.out.println("Trial of: " + player.getBiggestCard());
+    //   } else if (player.getStatus() == "Pair") {
+    //     System.out.println("Pair of: " + player.getBiggestCard());
+    //     System.out.println("Third Card: " + player.getSmallestCard());
+    //   } else {
+    //     System.out.println("Big: " + player.getBiggestCard());
+    //     System.out.println("Med: " + player.getMiddleCard());
+    //     System.out.println("Small: " + player.getSmallestCard());
+    //   }
+    //   System.out.println("----------------------------------");
+    // }
+    
+    System.out.println(
+      "--------Some Game Stats--------- \nTrail: " +
+      my_game.getTrail() +
+      "\nDouble Run: " +
+      my_game.getDoubleRun() +
+      "\nRun: " +
+      my_game.getRun() +
+      "\nColor: " +
+      my_game.getColor() +
+      "\nPair: " +
+      my_game.getPair() +
+      "\nPower: " +
+      my_game.getNothing()
+    );
+
+    System.out.print("Winner: ");
+    if (my_game.getWinner() != null) {
+      System.out.println(
+        my_game.getWinner().getName() +
+        "\nHand: " +
+        my_game.getWinner().getHand() +
+        my_game.getWinner().getStatus()
+      );
+    } else {
+      System.out.println("None, it's draw!!");
     }
   }
 }

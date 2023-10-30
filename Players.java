@@ -5,6 +5,7 @@ public class Players {
   private String name;
   private List<String> hand;
   private String status;
+  private String state;
   private String biggestCard;
   private String middleCard;
   private String smallestCard;
@@ -15,6 +16,7 @@ public class Players {
     String name,
     List<String> hand,
     String status,
+    String state,
     String biggestCard,
     String middleCard,
     String smallestCard
@@ -22,6 +24,7 @@ public class Players {
     this.name = name;
     this.hand = hand;
     this.status = status;
+    this.state = state;
     this.biggestCard = biggestCard;
     this.middleCard = middleCard;
     this.smallestCard = smallestCard;
@@ -49,6 +52,14 @@ public class Players {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
   }
 
   public String getBiggestCard() {
