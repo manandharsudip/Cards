@@ -9,16 +9,16 @@
 -> Min no of players: 2
 
 -> Combinations to win [highest]
-    -> all same 
-    -> continuous with color
-    -> continuous ...
-    -> all cards with same color
-    -> two cards same 
-    -> hand with highest card
+    -> trail 
+    -> double run
+    -> run
+    -> color
+    -> pair
+    -> power
 
 
 
-[A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K]
+[2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A]
 
 
 
@@ -60,9 +60,9 @@ else
 
 
 Functions
-    -> checking if all cards are same
-    -> checking if 2 cards same
-    -> checking if all cards same color
-    -> checking run
-    -> checking run
-    -> checking run
+    -> checkTrail
+    -> checkDoubleRun
+    -> checkRun
+    -> checkColor
+    -> checkPair
+    -> checkinPower

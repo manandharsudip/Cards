@@ -397,57 +397,56 @@ public class Cards {
     // Shuffle the deck
     Collections.shuffle(deck);
 
-    Scanner myObj = new Scanner(System.in); // Create a Scanner object
-    System.out.println("Enter Number of players: ");
+    Scanner myObj = new Scanner(System.in);
+    System.out.print("Enter Number of players: ");
 
-    int numPlayers = myObj.nextInt(); // Read user input
-    System.out.println("Number of players is: " + numPlayers); // Output user input
+    int numPlayers = myObj.nextInt();
 
-    // int numPlayers = 4; // Change this to the number of players you have
+    // int numPlayers = 4; /
     int cardsPerPlayer = 3;
 
     if (numPlayers > 0 && numPlayers <= 17) {
-      // Create an array to represent the players and their hands
       List<List<String>> players = new ArrayList<>();
       for (int i = 0; i < numPlayers; i++) {
         players.add(new ArrayList<>());
       }
 
-      // Distribute cards to players
+      // Cards Distribution
       int currentPlayer = 0;
       for (int i = 0; i < numPlayers * cardsPerPlayer; i++) {
-        String card = deck.remove(0); // Remove the top card from the deck
-        players.get(currentPlayer).add(card); // Add the card to the current player's hand
-        currentPlayer = (currentPlayer + 1) % numPlayers; // Move to the next player
+        String card = deck.remove(0); 
+        players.get(currentPlayer).add(card); 
+        currentPlayer = (currentPlayer + 1) % numPlayers;
       }
 
-      List<List<String>> myPlayers = List.of(
-        List.of("A of Hearts", "A of Spade", "A of Club"),
-        List.of("J of Hearts", "J of Diamond", "J of Club"),
-        List.of("10 of Spade", "10 of Diamond", "10 of Club"),
-        List.of("8 of Spade", "8 of Diamond", "8 of Club"),
-        List.of("3 of Spade", "A of Spade", "2 of Spade"),
-        List.of("9 of Spade", "10 of Spade", "J of Spade"),
-        // List.of("A of Spade", "K of Spade", "Q of Spade"),
-        List.of("A of Club", "K of Club", "Q of Club"),
-        List.of("J of Spade", "K of Spade", "Q of Spade"),
-        // List.of("K of Spade", "J of Spade", "Q of Diamond"),
-        List.of("K of Diamond", "J of Club", "Q of Spade"),
-        List.of("8 of Spade", "9 of Spade", "10 of Diamond"),
-        List.of("A of Spade", "2 of Spade", "3 of Diamond"),
-        // List.of("A of Spade", "2 of Spade", "3 of Diamond"),
-        List.of("A of Club", "2 of Club", "4 of Club"),
-        List.of("5 of Club", "8 of Club", "3 of Club"),
-        List.of("5 of Diamond", "7 of Diamond", "3 of Diamond"),
-        List.of("5 of Diamond", "7 of Diamond", "3 of Diamond"),
-        // List.of("A of Spade", "2 of Spade", "10 of Spade")
-        List.of("K of Club", "K of Diamond", "10 of Hearts"),
-        List.of("K of Spade", "K of Hearts", "10 of Spade"),
-        List.of("A of Club", "A of Diamond", "6 of Hearts"),
-        List.of("A of Club", "A of Diamond", "5 of Hearts"),
-        List.of("7 of Hearts", "Q of Spade", "6 of Club"),
-        List.of("7 of Club", "J of Spade", "6 of Spade")
-      );
+      // List<List<String>> myPlayers = List.of(
+      //   List.of("A of Hearts", "A of Spade", "A of Club"),
+      //   List.of("J of Hearts", "J of Diamond", "J of Club"),
+      //   List.of("10 of Spade", "10 of Diamond", "10 of Club"),
+      //   List.of("8 of Spade", "8 of Diamond", "8 of Club"),
+      //   List.of("3 of Spade", "A of Spade", "2 of Spade"),
+      //   List.of("9 of Spade", "10 of Spade", "J of Spade"),
+      //   List.of("A of Spade", "K of Spade", "Q of Spade"),
+      //   List.of("A of Club", "K of Club", "Q of Club"),
+      //   List.of("J of Spade", "K of Spade", "Q of Spade"),
+      //   List.of("K of Spade", "J of Spade", "Q of Diamond"),
+      //   List.of("K of Diamond", "J of Club", "Q of Spade"),
+      //   List.of("8 of Spade", "9 of Spade", "10 of Diamond"),
+      //   List.of("A of Spade", "2 of Spade", "3 of Diamond"),
+      //   List.of("A of Spade", "2 of Spade", "3 of Diamond"),
+      //   List.of("A of Club", "2 of Club", "4 of Club"),
+      //   List.of("5 of Club", "8 of Club", "3 of Club"),
+      //   List.of("5 of Diamond", "7 of Diamond", "3 of Diamond"),
+      //   List.of("5 of Diamond", "7 of Diamond", "3 of Diamond"),
+      //   List.of("A of Spade", "2 of Spade", "10 of Spade"),
+      //   List.of("K of Club", "K of Diamond", "10 of Hearts"),
+      //   List.of("K of Spade", "K of Hearts", "10 of Spade"),
+      //   List.of("A of Club", "A of Diamond", "6 of Hearts"),
+      //   List.of("A of Club", "A of Diamond", "5 of Hearts"),
+      //   List.of("7 of Hearts", "Q of Spade", "6 of Club"),
+      //   List.of("7 of Club", "J of Spade", "6 of Spade")
+      // );
+
       Cards myGame = new Cards();
       Game my_game = new Game();
 
