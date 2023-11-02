@@ -67,7 +67,7 @@ public class Cards {
     return winner;
   }
 
-  public List<List<String>> checkTrail(
+  public void checkTrail(
     List<Players> playersList,
     List<Players> trailPlayersList,
     List<List<String>> players,
@@ -103,10 +103,9 @@ public class Cards {
         my_game.setTrail(my_game.getTrail() + 1);
       }
     }
-    return null;
   }
 
-  public List<List<String>> checkDoubleRun(
+  public void checkDoubleRun(
     List<Players> playersList,
     List<Players> doubleRunPlayersList,
     List<List<String>> players,
@@ -170,10 +169,9 @@ public class Cards {
         my_game.setDoubleRun(my_game.getDoubleRun() + 1);
       }
     }
-    return null;
   }
 
-  public List<List<String>> checkRun(
+  public void checkRun(
     List<Players> playersList,
     List<Players> runPlayersList,
     List<List<String>> players,
@@ -219,11 +217,9 @@ public class Cards {
         }
       }
     }
-
-    return null;
   }
 
-  public List<List<String>> checkColor(
+  public void checkColor(
     List<Players> playersList,
     List<Players> colorPlayersList,
     List<List<String>> players,
@@ -248,7 +244,6 @@ public class Cards {
       myHand = sortFunc(players.get(i), myHand, ranks);
 
       if (color) {
-        // System.out.println("Color");
         Players player = new Players();
         String playerName = "Player" + i;
 
@@ -257,7 +252,6 @@ public class Cards {
           .anyMatch(person -> person.getName().equals(playerName));
 
         if (!playerExists) {
-          // System.out.println(player.getStatus());
           player.setName("Player" + i);
           player.setHand(players.get(i));
           player.setStatus("Color");
@@ -270,11 +264,9 @@ public class Cards {
         }
       }
     }
-
-    return null;
   }
 
-  public List<List<String>> checkPair(
+  public void checkPair(
     List<Players> playersList,
     List<Players> pairPlayersList,
     List<List<String>> players,
@@ -328,11 +320,9 @@ public class Cards {
         }
       }
     }
-
-    return null;
   }
 
-  public List<List<String>> defaultHand(
+  public void defaultHand(
     List<Players> playersList,
     List<Players> nothingPlayersList,
     List<List<String>> players,
@@ -364,8 +354,6 @@ public class Cards {
         my_game.setNothing(my_game.getNothing() + 1);
       }
     }
-
-    return null;
   }
 
   public static void main(String[] args) {
@@ -414,8 +402,8 @@ public class Cards {
       // Cards Distribution
       int currentPlayer = 0;
       for (int i = 0; i < numPlayers * cardsPerPlayer; i++) {
-        String card = deck.remove(0); 
-        players.get(currentPlayer).add(card); 
+        String card = deck.remove(0);
+        players.get(currentPlayer).add(card);
         currentPlayer = (currentPlayer + 1) % numPlayers;
       }
 
@@ -537,8 +525,10 @@ public class Cards {
                 trailPlayer.setState("Lost!!");
               }
             }
-            winner.setState("Winner");
-            my_game.setWinner(winner);
+            if (winner != null) {
+              winner.setState("Winner");
+              my_game.setWinner(winner);
+            }
             break;
           }
         } else if (

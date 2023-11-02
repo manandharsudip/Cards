@@ -5,7 +5,7 @@ public class Players {
   private String name;
   private List<String> hand;
   private String status;
-  private String state;
+  private String state = "Lost";
   private String biggestCard;
   private String middleCard;
   private String smallestCard;
