@@ -706,7 +706,7 @@ public class Cards {
           System.out.println("Middle Card: " + player.getMiddleCard());
           System.out.println("Third Card: " + player.getSmallestCard());
         } else {
-          System.out.println("Big: " + player.getBiggestCard());
+          System.out.println("Big Card: " + player.getBiggestCard());
           System.out.println("Middle Card: " + player.getMiddleCard());
           System.out.println("Third Card: " + player.getSmallestCard());
         }
