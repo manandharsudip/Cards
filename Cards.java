@@ -67,6 +67,24 @@ public class Cards {
     return winner;
   }
 
+  public Players setPlayerInfo(
+    Players player,
+    String name,
+    List<String> hand,
+    String hand1,
+    String hand2,
+    String hand3,
+    String status
+  ) {
+    player.setName(name);
+    player.setHand(hand);
+    player.setBiggestCard(hand1);
+    player.setMiddleCard(hand2);
+    player.setSmallestCard(hand3);
+    player.setStatus(status);
+    return player;
+  }
+
   public void checkTrail(
     List<Players> playersList,
     List<Players> trailPlayersList,
@@ -92,15 +110,27 @@ public class Cards {
 
       if (trail) {
         Players player = new Players();
-        player.setName("Player" + i);
-        player.setStatus("Trial");
-        player.setHand(players.get(i));
-        player.setBiggestCard(myHand[2]);
-        player.setMiddleCard(myHand[1]);
-        player.setSmallestCard(myHand[0]);
-        playersList.add(player);
-        trailPlayersList.add(player);
-        my_game.setTrail(my_game.getTrail() + 1);
+        String playerName = "Player " + (i + 1);
+
+        boolean playerExists = playersList
+          .stream()
+          .anyMatch(person -> person.getName().equals(playerName));
+
+        if (!playerExists) {
+          player =
+            setPlayerInfo(
+              player,
+              playerName,
+              players.get(i),
+              myHand[2],
+              myHand[1],
+              myHand[0],
+              "Trail"
+            );
+          playersList.add(player);
+          trailPlayersList.add(player);
+          my_game.setTrail(my_game.getTrail() + 1);
+        }
       }
     }
   }
@@ -116,7 +146,6 @@ public class Cards {
     for (int i = 0; i < numPlayers; i++) {
       boolean color = true;
 
-      // to check color
       int index1 = players.get(i).get(0).lastIndexOf(" ");
       String num = players.get(i).get(0).substring(index1 + 1);
 
@@ -134,10 +163,6 @@ public class Cards {
       int rank1Index = Arrays.asList(ranks).indexOf(myHand[0]);
       int rank2Index = Arrays.asList(ranks).indexOf(myHand[1]);
       int rank3Index = Arrays.asList(ranks).indexOf(myHand[2]);
-
-      // System.out.println("Rank 1: " + rank1Index);
-      // System.out.println("Rank 2: " + rank2Index);
-      // System.out.println("Rank 3: " + rank3Index);
 
       // custom logic to check the run in the hand
       if (
@@ -158,15 +183,27 @@ public class Cards {
         color
       ) {
         Players player = new Players();
-        player.setName("Player" + i);
-        player.setHand(players.get(i));
-        player.setStatus("Double Run");
-        player.setBiggestCard(myHand[2]);
-        player.setMiddleCard(myHand[1]);
-        player.setSmallestCard(myHand[0]);
-        playersList.add(player);
-        doubleRunPlayersList.add(player);
-        my_game.setDoubleRun(my_game.getDoubleRun() + 1);
+        String playerName = "Player " + (i + 1);
+
+        boolean playerExists = playersList
+          .stream()
+          .anyMatch(person -> person.getName().equals(playerName));
+
+        if (!playerExists) {
+          player =
+            setPlayerInfo(
+              player,
+              playerName,
+              players.get(i),
+              myHand[2],
+              myHand[1],
+              myHand[0],
+              "Double Run"
+            );
+          playersList.add(player);
+          doubleRunPlayersList.add(player);
+          my_game.setDoubleRun(my_game.getDoubleRun() + 1);
+        }
       }
     }
   }
@@ -180,7 +217,6 @@ public class Cards {
     int numPlayers
   ) {
     for (int i = 0; i < numPlayers; i++) {
-      // sorting cards in hand
       String[] myHand = new String[3];
       myHand = sortFunc(players.get(i), myHand, ranks);
 
@@ -197,20 +233,23 @@ public class Cards {
         )
       ) {
         Players player = new Players();
-        String playerName = "Player" + i;
+        String playerName = "Player " + (i + 1);
 
         boolean playerExists = playersList
           .stream()
           .anyMatch(person -> person.getName().equals(playerName));
 
         if (!playerExists) {
-          // System.out.println(player.getStatus());
-          player.setName("Player" + i);
-          player.setHand(players.get(i));
-          player.setStatus("Run");
-          player.setBiggestCard(myHand[2]);
-          player.setMiddleCard(myHand[1]);
-          player.setSmallestCard(myHand[0]);
+          player =
+            setPlayerInfo(
+              player,
+              playerName,
+              players.get(i),
+              myHand[2],
+              myHand[1],
+              myHand[0],
+              "Run"
+            );
           playersList.add(player);
           runPlayersList.add(player);
           my_game.setRun(my_game.getRun() + 1);
@@ -245,19 +284,23 @@ public class Cards {
 
       if (color) {
         Players player = new Players();
-        String playerName = "Player" + i;
+        String playerName = "Player " + (i + 1);
 
         boolean playerExists = playersList
           .stream()
           .anyMatch(person -> person.getName().equals(playerName));
 
         if (!playerExists) {
-          player.setName("Player" + i);
-          player.setHand(players.get(i));
-          player.setStatus("Color");
-          player.setBiggestCard(myHand[2]);
-          player.setMiddleCard(myHand[1]);
-          player.setSmallestCard(myHand[0]);
+          player =
+            setPlayerInfo(
+              player,
+              playerName,
+              players.get(i),
+              myHand[2],
+              myHand[1],
+              myHand[0],
+              "Color"
+            );
           playersList.add(player);
           colorPlayersList.add(player);
           my_game.setColor(my_game.getColor() + 1);
@@ -301,19 +344,23 @@ public class Cards {
 
       if (count == 2) {
         Players player = new Players();
-        String playerName = "Player" + i;
+        String playerName = "Player " + (i + 1);
 
         boolean playerExists = playersList
           .stream()
           .anyMatch(person -> person.getName().equals(playerName));
 
         if (!playerExists) {
-          player.setName("Player" + i);
-          player.setHand(players.get(i));
-          player.setStatus("Pair");
-          player.setBiggestCard(pairOf);
-          player.setMiddleCard(pairOf);
-          player.setSmallestCard(thirdCard);
+          player =
+            setPlayerInfo(
+              player,
+              playerName,
+              players.get(i),
+              pairOf,
+              pairOf,
+              thirdCard,
+              "Pair"
+            );
           playersList.add(player);
           pairPlayersList.add(player);
           my_game.setPair(my_game.getPair() + 1);
@@ -336,19 +383,23 @@ public class Cards {
       myHand = sortFunc(players.get(i), myHand, ranks);
 
       Players player = new Players();
-      String playerName = "Player" + i;
+      String playerName = "Player " + (i + 1);
 
       boolean playerExists = playersList
         .stream()
         .anyMatch(person -> person.getName().equals(playerName));
 
       if (!playerExists) {
-        player.setName("Player" + i);
-        player.setHand(players.get(i));
-        player.setStatus("Power");
-        player.setBiggestCard(myHand[2]);
-        player.setMiddleCard(myHand[1]);
-        player.setSmallestCard(myHand[0]);
+        player =
+          setPlayerInfo(
+            player,
+            playerName,
+            players.get(i),
+            myHand[2],
+            myHand[1],
+            myHand[0],
+            "Power"
+          );
         playersList.add(player);
         nothingPlayersList.add(player);
         my_game.setNothing(my_game.getNothing() + 1);
@@ -454,7 +505,7 @@ public class Cards {
       // myGame.checkColor(playersList, colorPlayersList, myPlayers, my_game, ranks, playersCount);
       // myGame.checkPair(playersList, pairPlayersList, myPlayers, my_game, ranks, playersCount);
       // myGame.defaultHand(playersList, nothingPlayersList, myPlayers, my_game, ranks, playersCount);
-      System.out.println("-----------------------------");
+      // System.out.println("-----------------------------");
       myGame.checkTrail(
         playersList,
         trailPlayersList,
@@ -504,10 +555,10 @@ public class Cards {
         numPlayers
       );
 
-      // System.out.println("----------------------------------");
+      System.out.println("----------------------------------");
 
       for (Players player : playersList) {
-        if (my_game.getTrail() > 0 && player.getStatus() == "Trial") {
+        if (my_game.getTrail() > 0 && player.getStatus() == "Trail") {
           if (my_game.getTrail() == 1) {
             player.setState("Winner");
             my_game.setWinner(player);
@@ -645,8 +696,8 @@ public class Cards {
         System.out.println("Hand: " + player.getHand());
         System.out.println("Status: " + player.getStatus());
         System.out.println("State: " + player.getState());
-        if (player.getStatus() == "Trial") {
-          System.out.println("Trial of: " + player.getBiggestCard());
+        if (player.getStatus() == "Trail") {
+          System.out.println("Trail of: " + player.getBiggestCard());
         } else if (player.getStatus() == "Pair") {
           System.out.println("Pair of: " + player.getBiggestCard());
           System.out.println("Third Card: " + player.getSmallestCard());
@@ -663,7 +714,7 @@ public class Cards {
       }
 
       System.out.println(
-        "--------Some Game Stats--------- \nTrail: " +
+        "--------- Some Game Stats -------- \nTrail: " +
         my_game.getTrail() +
         "\nDouble Run: " +
         my_game.getDoubleRun() +
@@ -677,9 +728,10 @@ public class Cards {
         my_game.getNothing()
       );
 
-      System.out.println("----------------------------\nWinner: ");
+      System.out.println("----------------------------------");
       if (my_game.getWinner() != null) {
         System.out.println(
+          "Winner: " +
           my_game.getWinner().getName() +
           "\nHand: " +
           my_game.getWinner().getHand() +
