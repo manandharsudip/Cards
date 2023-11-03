@@ -744,5 +744,7 @@ public class Cards {
     } else {
       System.out.println("Players should be greater than 0 and less than 18.");
     }
+
+    myObj.close();
   }
 }
